@@ -17,9 +17,9 @@ def process_order(order, child=False):
     #Insert order into data base
 
     if child:
-        new_order = Order(**{f:order[f] for f in fields_basic})
-    else:
         new_order = Order(**{f:order[f] for f in fields_child})
+    else:
+        new_order = Order(**{f:order[f] for f in fields_basic})
             
     session.add(new_order)
     session.commit()
