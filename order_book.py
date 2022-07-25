@@ -9,7 +9,7 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 fields_basic = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount']
-field_child = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','creator_id']
+fields_child = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','creator_id']
 
 def process_order(order, child=False):
     #Your code here
