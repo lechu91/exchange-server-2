@@ -37,39 +37,41 @@ def process_order(order):
                 new_order.counterparty_id = existing_order.get(id)
                 break
                 
-        if existing_order.buy_amount > new_order.sell_amount:
-            #create order
+    if existing_order.buy_amount > new_order.sell_amount:
+        #create order
+
+        buy_amount = existing_order.buy_amount - new_order.sell_amount
+        sell_amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
+
+        child_data = {'buy_currency': existing_order.buy_currency,
+                       'sell_currency': existing_order.sell_currency,
+                       'buy_amount': buy_amount,
+                       'sell_amount': sell_amount,
+                       'sender_pk': existing_order.sender_pk,
+                       'receiver_pk': existing_order.receiver_pk
+                      }
+        child_order = Order(**{f:child_data[f] for f in fields})
+        session.add(child_order)
+        session.commit()
+
+    elif new_order.buy_amount > existing_order.sell_amount:
+        #create order
+
+        buy_amount = new_order.buy_amount - existing_order.sell_amount
+        sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
+
+        child_data = {'buy_currency': new_order.buy_currency,
+                       'sell_currency': new_order.sell_currency,
+                       'buy_amount': buy_amount,
+                       'sell_amount': sell_amount,
+                       'sender_pk': new_order.sender_pk,
+                       'receiver_pk': new_order.receiver_pk
+                      }
+        child_order = Order(**{f:child_data[f] for f in fields})
+        session.add(child_order)
+        session.commit()
             
-            buy_amount = existing_order.buy_amount - new_order.sell_amount
-            sell_amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
-            
-            child_data = {'buy_currency': existing_order.buy_currency,
-                           'sell_currency': existing_order.sell_currency,
-                           'buy_amount': buy_amount,
-                           'sell_amount': sell_amount,
-                           'sender_pk': existing_order.sender_pk,
-                           'receiver_pk': existing_order.receiver_pk
-                          }
-            child_order = Order(**{f:child_data[f] for f in fields})
-            session.add(child_order)
-            session.commit()
-            
-        elif new_order.buy_amount > existing_order.sell_amount:
-            #create order
-            
-            buy_amount = new_order.buy_amount - existing_order.sell_amount
-            sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
-            
-            child_data = {'buy_currency': new_order.buy_currency,
-                           'sell_currency': new_order.sell_currency,
-                           'buy_amount': buy_amount,
-                           'sell_amount': sell_amount,
-                           'sender_pk': new_order.sender_pk,
-                           'receiver_pk': new_order.receiver_pk
-                          }
-            child_order = Order(**{f:child_data[f] for f in fields})
-            session.add(child_order)
-            session.commit()
+        
             
             
 
