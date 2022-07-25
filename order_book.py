@@ -35,6 +35,7 @@ def process_order(order):
                 new_order.filled = datetime.now()
                 existing_order.counterparty_id = new_order.get(id)
                 new_order.counterparty_id = existing_order.get(id)
+                session.commit()
                 break
                 
     if existing_order.buy_amount > new_order.sell_amount:
