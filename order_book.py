@@ -25,7 +25,7 @@ def process_order(order):
     for existing_order in orders:
         
         # Check if currencies match
-        if existing_order.buy_currency == order['sell_currency'] and existing_order.sell_currency == order['buy_currency']:
+        if existing_order.buy_currency == new_order.sell_currency and existing_order.sell_currency == new_order.buy_currency:
             
             print("orders with same currency found")
            
@@ -58,6 +58,7 @@ def process_order(order):
                        'receiver_pk': existing_order.receiver_pk
                       }
         child_order = Order(**{f:child_data[f] for f in fields})
+        child_order.creator_id = existing_order.id
         session.add(child_order)
         session.commit()
 
@@ -75,6 +76,7 @@ def process_order(order):
                        'receiver_pk': new_order.receiver_pk
                       }
         child_order = Order(**{f:child_data[f] for f in fields})
+        child_order.creator_id = new_order.id
         session.add(child_order)
         session.commit()
             
