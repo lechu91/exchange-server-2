@@ -42,7 +42,7 @@ def process_order(order):
             print("create new order")
             
             buy_amount = existing_order.buy_amount - new_order.sell_amount
-            sell amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
+            sell_amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
             
             child_order = {'buy_currency': existing_order.buy_currency,
                            'sell_currency': existing_order.sell_currency,
