@@ -51,7 +51,10 @@ def process_order(order):
                            'sender_pk': existing_order.sender_pk,
                            'receiver_pk': existing_order.receiver_pk
                           }
-            elif new_order.buy_amount > existing_order.sell_amount:
-                #create order
-                print("create new order")
+            
+            session.add(child_order)
+            session.commit()
+        elif new_order.buy_amount > existing_order.sell_amount:
+            #create order
+            print("create new order")
                 
