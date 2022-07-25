@@ -39,7 +39,6 @@ def process_order(order):
                 
         if existing_order.buy_amount > new_order.sell_amount:
             #create order
-            print("create new order")
             
             buy_amount = existing_order.buy_amount - new_order.sell_amount
             sell_amount = existing_order.sell_amount / existing_order.buy_amount * buy_amount
@@ -51,12 +50,27 @@ def process_order(order):
                            'sender_pk': existing_order.sender_pk,
                            'receiver_pk': existing_order.receiver_pk
                           }
-            
             child_order = Order(**{f:child_data[f] for f in fields})
-            
             session.add(child_order)
             session.commit()
+            
         elif new_order.buy_amount > existing_order.sell_amount:
             #create order
-            print("create new order")
+            
+            buy_amount = new_order.buy_amount - existing_order.sell_amount
+            sell_amount = new_order.sell_amount / new_order.buy_amount * buy_amount
+            
+            child_data = {'buy_currency': new_order.buy_currency,
+                           'sell_currency': new_order.sell_currency,
+                           'buy_amount': buy_amount,
+                           'sell_amount': sell_amount,
+                           'sender_pk': new_order.sender_pk,
+                           'receiver_pk': new_order.receiver_pk
+                          }
+            child_order = Order(**{f:child_data[f] for f in fields})
+            session.add(child_order)
+            session.commit()
+            
+            
+
                 
