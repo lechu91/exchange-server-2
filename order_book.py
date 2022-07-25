@@ -25,7 +25,7 @@ def process_order(order):
     for existing_order in orders:
         
         # Check if currencies match
-        if existing_order.buy_currency == order['sell_currency'] and existing_order['sell_currency'] == order.buy_currency':
+        if existing_order.buy_currency == order['sell_currency'] and existing_order.sell_currency == order['buy_currency']:
             
             print("orders with same currency found")
            
