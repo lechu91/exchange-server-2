@@ -37,8 +37,8 @@ def process_order(order):
                 #If a match is found between order and existing_order do the trade
                 existing_order.filled = datetime.now()
                 new_order.filled = datetime.now()
-                existing_order.counterparty_id = new_order.get(id)
-                new_order.counterparty_id = existing_order.get(id)
+                existing_order.counterparty_id = new_order.id
+                new_order.counterparty_id = existing_order.id
                 session.commit()
                 break
                 
