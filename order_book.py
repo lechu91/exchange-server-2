@@ -72,10 +72,11 @@ def process_order(order, child=False):
                        'buy_amount': buy_amount,
                        'sell_amount': sell_amount,
                        'sender_pk': new_order.sender_pk,
-                       'receiver_pk': new_order.receiver_pk
+                       'receiver_pk': new_order.receiver_pk,
+                       'creator_id': new_order.id                      '
                       }
-        child_order = Order(**{f:child_data[f] for f in fields})
-        child_order.creator_id = new_order.id
+        child_order = Order(**{f:child_data[f] for f in fields_child})
+#         child_order.creator_id = new_order.id
         session.add(child_order)
         session.commit()
             
