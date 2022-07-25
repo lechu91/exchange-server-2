@@ -25,10 +25,14 @@ def process_order(order):
     for existing_order in orders:
         
         # Check if currencies match
-        if existing_order.buy_currency == order.sell_currency and existing_order.sell_currency == order.buy_currency':
+        if existing_order.buy_currency == order['sell_currency'] and existing_order['sell_currency'] == order.buy_currency':
+            
+            print("orders with same currency found")
            
             # Check if exchange rates match
             if existing_order.sell_amount * new_order.sell_amount >= new_order.buy_amount * existing_order.buy_amount:
+                
+                print("orders with compatible exchange rate found")
                 
                 #If a match is found between order and existing_order do the trade
                 existing_order.filled = datetime.now()
@@ -38,6 +42,8 @@ def process_order(order):
                 session.commit()
                 break
                 
+            print("orders didn't have a compatible exchange rate")
+                    
     if existing_order.buy_amount > new_order.sell_amount:
         #create order
 
