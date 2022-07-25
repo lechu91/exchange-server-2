@@ -58,11 +58,9 @@ def process_order(order, child=False):
                        'creator_id': existing_order.id
                       }
         
-        process_order(child_data, True)
-        
-#         child_order = Order(**{f:child_data[f] for f in fields_child})
-#         session.add(child_order)
-#         session.commit()
+        child_order = Order(**{f:child_data[f] for f in fields_child})
+        session.add(child_order)
+        session.commit()
 
     elif new_order.buy_amount > existing_order.sell_amount:
         #create order
@@ -79,14 +77,6 @@ def process_order(order, child=False):
                        'creator_id': new_order.id
                       }
         
-        process_order(child_data, True)
-        
-#         child_order = Order(**{f:child_data[f] for f in fields_child})
-#         session.add(child_order)
-#         session.commit()
-            
-        
-            
-            
-
-                
+        child_order = Order(**{f:child_data[f] for f in fields_child})
+        session.add(child_order)
+        session.commit()
