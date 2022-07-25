@@ -8,7 +8,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount']
+fields = ['sender_pk','receiver_pk','buy_currency','sell_currency','buy_amount','sell_amount','creator_id']
 
 def process_order(order):
     #Your code here
